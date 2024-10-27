@@ -1,0 +1,63 @@
+---
+
+## Check
+
+- name: Check variables
+  ansible.builtin.assert:
+    that:
+      - transmission_user         is defined
+      - transmission_password     is defined
+      - transmission_download_dir is defined
+      - transmission_watch_dir    is defined
+
+- name: Check directories
+  ansible.builtin.stat: { path: "{{ item }}" }
+  register: _dir
+  failed_when: not _dir.stat.exists or not _dir.stat.writeable or not (_dir.stat.isdir or _dir.stat.islnk)
+  loop:
+    - "{{ transmission_download_dir }}"
+    - "{{ transmission_watch_dir }}"
+  tags: ["init"]
+
+## Init
+
+- name: Ensure project directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - "{{ docker_project_path }}"
+    - "{{ docker_project_path }}/config"
+  tags: ["init"]
+
+## Configure
+
+- name: Init configuration file
+  ansible.builtin.copy:
+    content: "{{ transmission_settings | to_json(indent=4) }}\n"
+    dest: "{{ docker_project_path }}/config/settings.json"
+    directory_mode : '0755'
+    mode:            '0644'
+  notify: Restart transmission
+
+- name: Create pass.txt password file
+  ansible.builtin.copy:
+    content: "{{ transmission_password }}"
+    dest: "{{ docker_project_path }}/config/pass.txt"
+    mode: '0640'
+  when: transmission_password
+  notify: Restart transmission
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ docker_project_path }}/docker-compose.yml"
+    mode: '0644'
+    validate: "{{ docker_cli }} compose -f %s config"
+    backup: true
+
+## Run
+
+- name: Start app
+  ansible.builtin.include_role: { name: djuuu.docker_project, tasks_from: compose-up }

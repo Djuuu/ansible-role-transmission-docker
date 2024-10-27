@@ -1,0 +1,32 @@
+---
+
+# Docker project variables
+
+transmission_project_name: transmission
+
+# Docker project dynamic vars (uses `docker_project_name` prefix, adapt if overriden)
+
+transmission_traefik_loadbalancer_server_port: 9091
+transmission_traefik_middlewares:
+  - "{{ docker_project_slug }}-cors@docker"
+
+# Main service additional docker-compose options (ex: cpu_shares, deploy, ...)
+transmission_compose_service_additional_options: |
+  ports:
+    - "9091:9091/tcp"   # rpc-port
+    - "51413:51413/tcp" # peer-port
+    - "51413:51413/udp" # peer-port
+
+
+# Transmission project variables
+
+transmission_user:     "transmission"
+transmission_password: "CH4NGE ME!"
+
+transmission_download_dir: "{{ docker_project_path }}/downloads"
+transmission_watch_dir:    "{{ docker_project_path }}/watch"
+
+# Transmission custom settings (see `transmission_default_settings` in vars/main.yml)
+transmission_custom_settings:
+  blocklist-enabled: true
+  blocklist-url:     "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
