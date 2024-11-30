@@ -20,6 +20,8 @@ transmission_compose_service_additional_options: |
 
 # Transmission project variables
 
+transmission_version: latest
+
 transmission_user:     "transmission"
 transmission_password: "CH4NGE ME!"
 

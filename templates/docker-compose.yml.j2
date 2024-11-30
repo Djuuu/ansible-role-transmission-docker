@@ -8,7 +8,7 @@ services:
 
   transmission:
     container_name: {{ docker_project_slug }}
-    image: lscr.io/linuxserver/transmission:latest
+    image: lscr.io/linuxserver/transmission:{{ transmission_version }}
     restart: always
 
     {{ docker_project_compose_service_additional_options | indent(4) }}

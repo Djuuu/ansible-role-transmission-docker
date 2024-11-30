@@ -55,6 +55,8 @@ transmission_compose_service_additional_options: |
 ```yaml
 # Transmission project variables
 
+transmission_version: latest
+
 transmission_user:     "transmission"
 transmission_password: "CH4NGE ME!"
 
