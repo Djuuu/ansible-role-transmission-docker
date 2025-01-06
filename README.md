@@ -38,7 +38,7 @@ Available role variables are listed below, along with default values (see `defau
 
 transmission_project_name: transmission
 
-# Docker project dynamic vars (uses `docker_project_name` prefix, adapt if overriden)
+# Docker project dynamic vars (uses `docker_project_name` prefix, adapt if overridden)
 
 # Port targeted by Traefik router
 transmission_traefik_loadbalancer_server_port: 9091
