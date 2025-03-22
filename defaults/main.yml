@@ -27,6 +27,9 @@ transmission_password: "CH4NGE ME!"
 transmission_download_dir: "{{ docker_project_path }}/downloads"
 transmission_watch_dir:    "{{ docker_project_path }}/watch"
 
+# Transmission network mode (bridge|host)
+transmission_network_mode: bridge
+
 # Transmission custom settings (see `transmission_default_settings` in vars/main.yml)
 transmission_custom_settings:
   blocklist-enabled: true
