@@ -62,6 +62,11 @@ transmission_password: "CH4NGE ME!"
 transmission_download_dir: "{{ docker_project_path }}/downloads"
 transmission_watch_dir:    "{{ docker_project_path }}/watch"
 
+# UID container is running as
+transmission_puid: "{{ ansible_user_uid }}"
+# GID container is running as
+transmission_pgid: "{{ ansible_user_gid }}"
+
 # Transmission network mode (bridge|host)
 transmission_network_mode: bridge
 

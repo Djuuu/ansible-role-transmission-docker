@@ -17,8 +17,8 @@ services:
     {{ docker_project_compose_service_additional_options | indent(4) }}
 
     environment:
-      - PGID={{ ansible_user_gid }}
-      - PUID={{ ansible_user_uid }}
+      - PUID={{ transmission_puid }}
+      - PGID={{ transmission_pgid }}
       - TZ={{ timezone | default('UTC') }}
       - USER={{ transmission_user }}
       - FILE__PASS=/config/pass.txt
