@@ -10,7 +10,7 @@ transmission_project_name: transmission
 transmission_traefik_loadbalancer_server_port: 9091
 
 # Main service additional docker-compose options (ex: cpu_shares, deploy, ...)
-transmission_compose_service_additional_options: |
+transmission_service_additional_options: |
   ports:
     - "9091:9091/tcp"   # rpc-port
     - "51413:51413/tcp" # peer-port
@@ -31,9 +31,6 @@ transmission_watch_dir:    "{{ docker_project_path }}/watch"
 transmission_puid: "{{ ansible_user_uid }}"
 # GID container is running as
 transmission_pgid: "{{ ansible_user_gid }}"
-
-# Transmission network mode (bridge|host)
-transmission_network_mode: bridge
 
 # Transmission custom settings (see `transmission_default_settings` in vars/main.yml)
 transmission_custom_settings:
