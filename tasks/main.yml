@@ -46,7 +46,7 @@
     content: "{{ transmission_password }}"
     dest: "{{ docker_project_path }}/config/pass.txt"
     mode: '0640'
-  when: transmission_password
+  when: transmission_password is truthy
   notify: Restart transmission
 
 - name: Template docker-compose.yml
