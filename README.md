@@ -71,6 +71,13 @@ transmission_pgid: "{{ ansible_user_gid }}"
 transmission_custom_settings:
   blocklist-enabled: true
   blocklist-url:     "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
+
+# Alternative web UI (optional)
+# Examples: download into your config/ directory and use:
+#   /config/transmissionic
+#   /config/Shift
+#   /config/combustion-release
+transmission_web_home:
 ```
 
 Dependencies

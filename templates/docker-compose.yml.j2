@@ -21,6 +21,9 @@ services:
       - TZ={{ timezone | default('UTC') }}
       - USER={{ transmission_user }}
       - FILE__PASS=/config/pass.txt
+      {% if transmission_web_home is truthy %}
+      - TRANSMISSION_WEB_HOME={{ transmission_web_home }}
+      {% endif %}
 
     volumes:
       - ./config:/config
