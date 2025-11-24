@@ -22,14 +22,14 @@ transmission_default_settings:
   cache-size-mb:               4
   default-trackers:            ""
   dht-enabled:                 true
-  download-dir:                "/downloads/complete"
+  download-dir:                "{{ transmission_download_dir_target }}/complete"
   download-queue-enabled:      true
   download-queue-size:         5
 
   encryption:                  1
   idle-seeding-limit:          30
   idle-seeding-limit-enabled:  false
-  incomplete-dir:              "/downloads/incomplete"
+  incomplete-dir:              "{{ transmission_download_dir_target }}/incomplete"
   incomplete-dir-enabled:      true
   lpd-enabled:                 false
   message-level:               2
@@ -90,7 +90,7 @@ transmission_default_settings:
   upload-slots-per-torrent:      14
   utp-enabled:                   false
 
-  watch-dir:          "/watch"
+  watch-dir:          "{{ transmission_watch_dir_target }}"
   watch-dir-enabled:  true
 
 

@@ -27,8 +27,8 @@ services:
 
     volumes:
       - ./config:/config
-      - {{ transmission_download_dir }}:/downloads
-      - {{ transmission_watch_dir }}:/watch
+      - {{ transmission_download_dir }}:{{ transmission_download_dir_target }}
+      - {{ transmission_watch_dir }}:{{ transmission_watch_dir_target }}
 
     labels:
       {{ traefik_project_base_labels | indent(6) }}

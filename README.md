@@ -59,8 +59,12 @@ transmission_version: latest
 transmission_user:     "transmission"
 transmission_password: "CH4NGE ME!"
 
+## Local directories
 transmission_download_dir: "{{ docker_project_path }}/downloads"
 transmission_watch_dir:    "{{ docker_project_path }}/watch"
+## Directories in container
+transmission_download_dir_target: /downloads
+transmission_watch_dir_target: /watch
 
 # UID container is running as
 transmission_puid: "{{ ansible_user_uid }}"
