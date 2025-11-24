@@ -34,6 +34,8 @@ services:
       {{ traefik_project_base_labels | indent(6) }}
       {{ docker_project_service_additional_labels | indent(6) }}
 
+  {{ docker_project_additional_services | default('') | indent(2) }}
+
 {{ docker_project_networks }}
 
 {{ docker_project_compose_additional_options }}

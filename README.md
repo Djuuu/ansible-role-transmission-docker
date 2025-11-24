@@ -104,6 +104,28 @@ Example Playbook
     - djuuu.transmission_docker
 ```
 
+### Using Gluetun
+
+See [djuuu.gluetun_docker](https://github.com/Djuuu/ansible-role-gluetun-docker)
+
+```yaml
+- hosts: all
+  gather_facts: true
+  gather_subset:
+    - "!all"
+    - "!min"
+    - user_id
+
+  pre_tasks:
+    - name: Template Gluetun service yaml
+      ansible.builtin.include_role:
+        name: djuuu.gluetun_docker
+        tasks_from: template_service
+
+  roles:
+    - djuuu.transmission_docker
+```
+
 License
 -------
 

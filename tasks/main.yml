@@ -49,6 +49,31 @@
   when: transmission_password is truthy
   notify: Restart transmission
 
+## Configure additional services
+
+- name: Add Gluetun service
+  when: gluetun_service_yaml is defined
+  block:
+    - name: Ensure Gluetun config directory exists
+      ansible.builtin.file: { path: "{{ docker_project_path }}/gluetun", state: directory, mode: '0755' }
+      tags: ["init"]
+    - name: Set vars for Gluetun integration
+      ansible.builtin.set_fact:
+        docker_project_service_network_options: 'network_mode: "service:gluetun"'
+        docker_service_depends_on: { depends_on: { gluetun: { condition: service_healthy, restart: true } } }
+
+- name: Set vars for additional services
+  ansible.builtin.set_fact:
+    docker_project_additional_services: |
+      {{ gluetun_service_yaml | default('') }}
+    docker_project_service_additional_options: |
+      {{ docker_project_service_additional_options | default('') }}
+      {{ docker_service_depends_on is defined | ternary(
+          docker_service_depends_on | to_nice_yaml(indent=2,sort_keys=false),
+          '') }}
+
+## Configure docker-compose.yml
+
 - name: Template docker-compose.yml
   ansible.builtin.template:
     src: docker-compose.yml.j2
