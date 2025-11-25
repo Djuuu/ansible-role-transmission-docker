@@ -97,7 +97,7 @@ Example Playbook
 ----------------
 
 ```yaml
-- hosts: all
+- hosts: example
   gather_facts: true
   gather_subset:
     - "!all"
@@ -108,12 +108,36 @@ Example Playbook
     - djuuu.transmission_docker
 ```
 
+### Using Flood
+
+See [djuuu.flood_docker](https://github.com/Djuuu/ansible-role-flood-docker)
+
+```yaml
+- hosts: example
+  gather_facts: true
+  gather_subset:
+    - "!all"
+    - "!min"
+    - user_id
+
+  pre_tasks:
+    - name: Template Flood service yaml
+      vars:
+        flood_backend_service: transmission
+      ansible.builtin.include_role:
+        name: djuuu.flood_docker
+        tasks_from: template_service
+
+  roles:
+    - djuuu.transmission_docker
+```
+
 ### Using Gluetun
 
 See [djuuu.gluetun_docker](https://github.com/Djuuu/ansible-role-gluetun-docker)
 
 ```yaml
-- hosts: all
+- hosts: example
   gather_facts: true
   gather_subset:
     - "!all"

@@ -51,6 +51,13 @@
 
 ## Configure additional services
 
+- name: Add Flood service
+  when: flood_service_yaml is defined
+  block:
+    - name: Ensure Flood config directory exists
+      ansible.builtin.file: { path: "{{ docker_project_path }}/flood-config", state: directory, mode: '0755' }
+      tags: ["init"]
+
 - name: Add Gluetun service
   when: gluetun_service_yaml is defined
   block:
@@ -65,6 +72,7 @@
 - name: Set vars for additional services
   ansible.builtin.set_fact:
     docker_project_additional_services: |
+      {{ flood_service_yaml | default('') }}
       {{ gluetun_service_yaml | default('') }}
     docker_project_service_additional_options: |
       {{ docker_project_service_additional_options | default('') }}
