@@ -67,9 +67,9 @@ transmission_download_dir_target: /downloads
 transmission_watch_dir_target: /watch
 
 # UID container is running as
-transmission_puid: "{{ ansible_user_uid }}"
+transmission_puid: "{{ ansible_facts['user_uid'] }}"
 # GID container is running as
-transmission_pgid: "{{ ansible_user_gid }}"
+transmission_pgid: "{{ ansible_facts['user_gid'] }}"
 
 # Transmission custom settings (see `transmission_default_settings` in vars/main.yml)
 transmission_custom_settings:
